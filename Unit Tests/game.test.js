@@ -42,8 +42,11 @@ describe('Scorecard class', function() {
       game.gameGrid = shipPlacement()
       const turn = jest.spyOn(game, 'turn')
       expect(game.turn("E9")).toEqual("Hit")
+      expect(game.turn("F9")).toEqual("Hit")
+      expect(game.turn("G9")).toEqual("Hit")
+      expect(game.turn("H9")).toEqual("Hit")
       expect(turn).toHaveBeenCalled()
-      expect(turn).toHaveBeenCalledTimes(1);
+      expect(turn).toHaveBeenCalledTimes(4);
       expect(shipPlacement).toHaveBeenCalled()
       expect(shipPlacement).toHaveBeenCalledTimes(1);
     });
