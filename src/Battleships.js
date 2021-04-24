@@ -55,8 +55,6 @@ class Battleships {
   turn(coordinate) {
     const [row, column] = this.convertCoordinate(coordinate)
     const finalGrid = this.gameGrid
-    // console.log(this.assignedShips)
-    // console.log(finalGrid)
     return finalGrid[row][column] === "D" || finalGrid[row][column] === "B" ? "Hit" : "Miss"
   }
 
