@@ -19,8 +19,6 @@ describe('Scorecard class', function() {
       [0,0,0,0,0,0,0,0,0,0],
       [0,0,0,0,"D","D","D","D",0,0],
       [0,0,0,0,0,0,0,0,0,0]])
-    grid = jest.spyOn(game, 'grid').mockReturnValue(gridMock())
-    turn = jest.spyOn(game, 'turn')
   });
 
   afterEach(function() {
@@ -29,16 +27,20 @@ describe('Scorecard class', function() {
 
   describe('testing game', function() {
     it('testing hit ship', function() {
+      grid = jest.spyOn(game, 'grid').mockReturnValue(gridMock())
+      turn = jest.spyOn(game, 'turn')
       expect(game.turn("A5")).toEqual("Hit")
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(1);
     });
 
     it('testing missing a ship', function() {
+      grid = jest.spyOn(game, 'grid').mockReturnValue(gridMock())
+      turn = jest.spyOn(game, 'turn')
       expect(game.turn("A6")).toEqual("Miss")
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(1);
     });
   })
-  
+
 })
