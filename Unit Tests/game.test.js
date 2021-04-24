@@ -22,19 +22,10 @@ describe('Scorecard class', function() {
   });
 
   afterEach(function() {
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   })
 
   describe('testing game', function() {
-    it('testing hit ship', function() {
-      const shipPlacement = jest.spyOn(game, 'allocateShipsRandomly').mockImplementation(() => gridMock())
-      const turn = jest.spyOn(game, 'turn')
-      game.gameGrid = shipPlacement()
-      expect(game.turn("A5")).toEqual("Hit")
-      expect(turn).toHaveBeenCalled()
-      expect(turn).toHaveBeenCalledTimes(1);
-    });
-
     it('testing missing a ship', function() {
       const shipPlacement = jest.spyOn(game, 'allocateShipsRandomly').mockImplementation(() => gridMock())
       game.gameGrid = shipPlacement()
@@ -42,12 +33,13 @@ describe('Scorecard class', function() {
       expect(game.turn("A6")).toEqual("Miss")
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(1);
+      expect(shipPlacement).toHaveBeenCalled()
+      expect(shipPlacement).toHaveBeenCalledTimes(1);
     });
 
-    it('testing random grid created', function() {
+    it('testing random grid created and hit ship', function() {
       const shipPlacement = jest.spyOn(game, 'allocateShipsRandomly').mockImplementation(() => gridMock())
       game.gameGrid = shipPlacement()
-      console.log(game.gameGrid)
       const turn = jest.spyOn(game, 'turn')
       expect(game.turn("E9")).toEqual("Hit")
       expect(turn).toHaveBeenCalled()
