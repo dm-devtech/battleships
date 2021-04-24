@@ -39,6 +39,6 @@ describe('Scorecard class', function() {
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(1);
     });
-
-})
+  })
+  
 })
