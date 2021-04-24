@@ -37,7 +37,7 @@ describe('Scorecard class', function() {
       expect(shipPlacement).toHaveBeenCalledTimes(1);
     });
 
-    it('testing random grid created and hit ship', function() {
+    it('testing hit ship', function() {
       const shipPlacement = jest.spyOn(game, 'allocateShipsRandomly').mockImplementation(() => gridMock())
       game.gameGrid = shipPlacement()
       const turn = jest.spyOn(game, 'turn')
