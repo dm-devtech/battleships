@@ -46,9 +46,9 @@ class Battleships {
     let gameGrid = this.blankGrid()
     const [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column] = this.randomShipCoordinates()
 
-    if(!gameGrid[ship1Row].includes("B") && !gameGrid[ship1Row].includes("D")) gameGrid[ship1Row].splice([ship1Column], 5, 'B', 'B', 'B', 'B', 'B')
-    if(!gameGrid[ship2Row].includes("B") && !gameGrid[ship2Row].includes("D")) gameGrid[ship2Row].splice([ship2Column], 4, 'D', 'D', 'D', 'D')
-    if(!gameGrid[ship3Row].includes("B") && !gameGrid[ship3Row].includes("D")) gameGrid[ship3Row].splice([ship3Column], 4, 'D', 'D', 'D', 'D')
+    gameGrid[ship1Row].splice([ship1Column], 5, 'B', 'B', 'B', 'B', 'B')
+    gameGrid[ship2Row].splice([ship2Column], 4, 'D', 'D', 'D', 'D')
+    gameGrid[ship3Row].splice([ship3Column], 4, 'D', 'D', 'D', 'D')
 
     return gameGrid
   }
