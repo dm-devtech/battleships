@@ -33,7 +33,7 @@ class Battleships {
 
     while(true){
       if(uniqueColumns.size >= 3) break
-      if(uniqueColumns.size < 3) uniqueColumns.add(this.randomNumber(8))
+      if(uniqueColumns.size < 3) uniqueColumns.add(this.randomNumber(5))
     }
 
     let [ship1Row, ship2Row, ship3Row] = [...uniqueRows]
