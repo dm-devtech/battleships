@@ -65,6 +65,29 @@ describe('Scorecard class', function() {
       expect(shipPlacement).toHaveBeenCalled()
       expect(shipPlacement).toHaveBeenCalledTimes(1);
     });
+
+    it('testing game finishes', function() {
+      const shipPlacement = jest.spyOn(game, 'allocateShipsRandomly').mockImplementation(() => gridMock())
+      game.gameGrid = shipPlacement()
+      const turn = jest.spyOn(game, 'turn')
+      expect(game.turn("A5")).toEqual("Hit")
+      expect(game.turn("B5")).toEqual("Hit")
+      expect(game.turn("C5")).toEqual("Hit")
+      expect(game.turn("D5")).toEqual("Hit")
+      expect(game.turn("E5")).toEqual("Sunk")
+      expect(game.turn("E6")).toEqual("Hit")
+      expect(game.turn("F6")).toEqual("Hit")
+      expect(game.turn("G6")).toEqual("Hit")
+      expect(game.turn("H6")).toEqual("Sunk")
+      expect(game.turn("E9")).toEqual("Hit")
+      expect(game.turn("F9")).toEqual("Hit")
+      expect(game.turn("G9")).toEqual("Hit")
+      expect(game.turn("H9")).toEqual("Game Over")
+      expect(turn).toHaveBeenCalled()
+      expect(turn).toHaveBeenCalledTimes(13);
+      expect(shipPlacement).toHaveBeenCalled()
+      expect(shipPlacement).toHaveBeenCalledTimes(1);
+    });
   })
 
 })
