@@ -52,10 +52,20 @@ class Battleships {
     return [row, column]
   }
 
+  hitMarker(turn, row, column) {
+    if(turn === "Hit") this.gameGrid[row].splice([column], 1, 'X')
+    if(this.gameGrid[row].includes("X") && this.gameGrid[row].includes(0) && !this.gameGrid[row].includes("B") && !this.gameGrid[row].includes("D")) return "Sunk"
+  }
+
+  hitOrMiss(grid, row, column) {
+      return grid[row][column] === "D" || grid[row][column] === "B" ? "Hit" : "Miss"
+  }
+
   turn(coordinate) {
     const [row, column] = this.convertCoordinate(coordinate)
     const finalGrid = this.gameGrid
-    return finalGrid[row][column] === "D" || finalGrid[row][column] === "B" ? "Hit" : "Miss"
+    const turnResult = this.hitOrMiss(finalGrid, row, column)
+    return this.hitMarker(turnResult, row, column) === "Sunk" ? "Sunk" : turnResult
   }
 
 }
