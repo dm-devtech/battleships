@@ -22,17 +22,30 @@ class Battleships {
     return Math.floor(Math.random() * max)
   }
 
-  randomCoordinates() {
-    const [ship1Row, ship1Column] = [this.randomNumber(8), this.randomNumber(5)]
-    const [ship2Row, ship2Column] = [this.randomNumber(8), this.randomNumber(5)]
-    const [ship3Row, ship3Column] = [this.randomNumber(8), this.randomNumber(5)]
+  randomShipCoordinates() {
+    let uniqueRows = new Set
+    let uniqueColumns = new Set
+
+    while(true){
+      if(uniqueRows.size >= 3) break
+      if(uniqueRows.size < 3) uniqueRows.add(this.randomNumber(8))
+    }
+
+    while(true){
+      if(uniqueColumns.size >= 3) break
+      if(uniqueColumns.size < 3) uniqueColumns.add(this.randomNumber(8))
+    }
+
+    let [ship1Row, ship2Row, ship3Row] = [...uniqueRows]
+    let [ship1Column, ship2Column, ship3Column] = [...uniqueColumns]
+
     return [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column]
   }
 
   allocateShipsRandomly() {
-    const gameGrid = this.blankGrid()
-    const [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column] = this.randomCoordinates()
-    // rerun this if there arent 8 destoryer and 5 bship segments
+    let gameGrid = this.blankGrid()
+    const [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column] = this.randomShipCoordinates()
+
     if(!gameGrid[ship1Row].includes("B") && !gameGrid[ship1Row].includes("D")) gameGrid[ship1Row].splice([ship1Column], 5, 'B', 'B', 'B', 'B', 'B')
     if(!gameGrid[ship2Row].includes("B") && !gameGrid[ship2Row].includes("D")) gameGrid[ship2Row].splice([ship2Column], 4, 'D', 'D', 'D', 'D')
     if(!gameGrid[ship3Row].includes("B") && !gameGrid[ship3Row].includes("D")) gameGrid[ship3Row].splice([ship3Column], 4, 'D', 'D', 'D', 'D')
@@ -54,7 +67,7 @@ class Battleships {
     return sunk
   }
 
-  hitMarker(turn, row, column) {
+  addHitMarker(turn, row, column) {
     if(turn === "Hit") this.gameGrid[row].splice([column], 1, 'X')
   }
 
@@ -64,7 +77,7 @@ class Battleships {
 
   isGameOver() {
     const flattenedGrid = this.gameGrid.flat()
-    const hits = 0
+    let hits = 0
 
     for(let i = 0; i < flattenedGrid.length; i++){
       if(flattenedGrid[i] === "X") hits += 1
@@ -77,7 +90,7 @@ class Battleships {
   turn(coordinate) {
     const [row, column] = this.convertCoordinate(coordinate)
     const turnResult = this.hitOrMiss(this.gameGrid, row, column)
-    this.hitMarker(turnResult, row, column)
+    this.addHitMarker(turnResult, row, column)
     return this.turnMessage(turnResult, row, column)
   }
 
