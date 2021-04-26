@@ -23,15 +23,15 @@ class Battleships {
   }
 
   randomCoordinates() {
-    let [ship1Row, ship1Column] = [this.randomNumber(8), this.randomNumber(5)]
-    let [ship2Row, ship2Column] = [this.randomNumber(8), this.randomNumber(5)]
-    let [ship3Row, ship3Column] = [this.randomNumber(8), this.randomNumber(5)]
+    const [ship1Row, ship1Column] = [this.randomNumber(8), this.randomNumber(5)]
+    const [ship2Row, ship2Column] = [this.randomNumber(8), this.randomNumber(5)]
+    const [ship3Row, ship3Column] = [this.randomNumber(8), this.randomNumber(5)]
     return [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column]
   }
 
   allocateShipsRandomly() {
-    let gameGrid = this.blankGrid()
-    let [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column] = this.randomCoordinates()
+    const gameGrid = this.blankGrid()
+    const [ship1Row, ship1Column, ship2Row, ship2Column, ship3Row, ship3Column] = this.randomCoordinates()
     // rerun this if there arent 8 destoryer and 5 bship segments
     if(!gameGrid[ship1Row].includes("B") && !gameGrid[ship1Row].includes("D")) gameGrid[ship1Row].splice([ship1Column], 5, 'B', 'B', 'B', 'B', 'B')
     if(!gameGrid[ship2Row].includes("B") && !gameGrid[ship2Row].includes("D")) gameGrid[ship2Row].splice([ship2Column], 4, 'D', 'D', 'D', 'D')
@@ -63,8 +63,8 @@ class Battleships {
   }
 
   isGameOver() {
-    let flattenedGrid = this.gameGrid.flat()
-    let hits = 0
+    const flattenedGrid = this.gameGrid.flat()
+    const hits = 0
 
     for(let i = 0; i < flattenedGrid.length; i++){
       if(flattenedGrid[i] === "X") hits += 1
@@ -76,10 +76,12 @@ class Battleships {
 
   turn(coordinate) {
     const [row, column] = this.convertCoordinate(coordinate)
-    const finalGrid = this.gameGrid
-    const turnResult = this.hitOrMiss(finalGrid, row, column)
+    const turnResult = this.hitOrMiss(this.gameGrid, row, column)
     this.hitMarker(turnResult, row, column)
+    return this.turnMessage(turnResult, row, column)
+  }
 
+  turnMessage(turnResult, row, column) {
     if(this.isGameOver()){
       return "Game Over"
     }else {
