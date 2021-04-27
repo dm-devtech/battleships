@@ -97,6 +97,14 @@ describe('Scorecard class', function() {
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(1);
     });
+
+    it('turn coordinates exceed grid', function() {
+      const turn = jest.spyOn(game, 'turn')
+      expect(() => {game.turn("a16")}).toThrowError('Coordinate should be a string and letter should be upper case. Coordinates cannot exceed J10.');
+      expect(() => {game.turn("Z99")}).toThrowError('Coordinate should be a string and letter should be upper case. Coordinates cannot exceed J10.');
+      expect(turn).toHaveBeenCalled()
+      expect(turn).toHaveBeenCalledTimes(2);
+    });
   })
 
 })
