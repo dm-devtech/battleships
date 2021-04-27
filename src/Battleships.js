@@ -112,7 +112,7 @@ class Battleships {
 
   turnMessage(turnResult, row, column) {
     if(this.isGameOver()){
-      return "Game Over"
+      return "All ships sunk. Game Over"
     }else {
       return this.isShipSunk(row) && turnResult === "Hit" ? "Sunk" : turnResult
     }

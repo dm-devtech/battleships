@@ -82,7 +82,7 @@ describe('Scorecard class', function() {
       expect(game.turn("E9")).toEqual("Hit")
       expect(game.turn("F9")).toEqual("Hit")
       expect(game.turn("G9")).toEqual("Hit")
-      expect(game.turn("H9")).toEqual("Game Over")
+      expect(game.turn("H9")).toEqual("All ships sunk. Game Over")
       expect(turn).toHaveBeenCalled()
       expect(turn).toHaveBeenCalledTimes(13);
       expect(shipPlacement).toHaveBeenCalled()
