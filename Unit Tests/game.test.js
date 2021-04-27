@@ -90,4 +90,13 @@ describe('Scorecard class', function() {
     });
   })
 
+  describe('edge cases', function() {
+    it('format incorrect', function() {
+      const turn = jest.spyOn(game, 'turn')
+      expect(() => {game.turn("a6")}).toThrowError('Coordinate should be a string and letter should be upper case. Coordinates cannot exceed J10.');
+      expect(turn).toHaveBeenCalled()
+      expect(turn).toHaveBeenCalledTimes(1);
+    });
+  })
+
 })

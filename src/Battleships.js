@@ -72,7 +72,7 @@ class Battleships {
   }
 
   hitOrMiss(grid, row, column) {
-      return grid[row][column] === "D" || grid[row][column] === "B" ? "Hit" : "Miss"
+    return grid[row][column] === "D" || grid[row][column] === "B" ? "Hit" : "Miss"
   }
 
   isGameOver() {
@@ -87,7 +87,23 @@ class Battleships {
     return gameOver
   }
 
+  checkCoordinateLetter(coordinate) {
+    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    return letters.includes(coordinate[0]) ? true : false
+  }
+
+  checkCoordinateNumber(coordinate) {
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    let rowNumber = parseInt(coordinate.split("").slice(1,100).join(""))
+    return numbers.includes(rowNumber) ? true : false
+  }
+
+  checkCoordinate(coordinate) {
+    return this.checkCoordinateLetter(coordinate) && this.checkCoordinateNumber(coordinate)
+  }
+
   turn(coordinate) {
+    if(!this.checkCoordinate(coordinate)) throw new Error('Coordinate should be a string and letter should be upper case. Coordinates cannot exceed J10.')
     const [row, column] = this.convertCoordinate(coordinate)
     const turnResult = this.hitOrMiss(this.gameGrid, row, column)
     this.addHitMarker(turnResult, row, column)
